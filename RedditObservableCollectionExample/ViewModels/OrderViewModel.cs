@@ -26,44 +26,19 @@ public sealed class OrderViewModel : ViewModelBase
         switch (args.Action)
         {
             case NotifyCollectionChangedAction.Add:
-                HandleNewItems();
-                break;
-            
-            case NotifyCollectionChangedAction.Remove:
-                HandleOldItems();
-                break;
-            
             case NotifyCollectionChangedAction.Replace:
-                HandleNewItems();
-                HandleOldItems();
-                break;
+                if (args.NewItems is null) return;
             
-            // TODO: NotifyCollectionChangedAction.Reset?
+                // Observe each new item for property changes.
+                foreach (var newItem in args.NewItems.OfType<OrderItemViewModel>())
+                {
+                    newItem.PropertyChanged += OnItemPropertyChanged;
+                }
+                
+                break;
         }
         
         this.RaisePropertyChanged(nameof(TotalPrice));
-
-        void HandleNewItems()
-        {
-            if (args.NewItems is null) return;
-            
-            // Observe each new item for property changes.
-            foreach (var newItem in args.NewItems.OfType<OrderItemViewModel>())
-            {
-                newItem.PropertyChanged += OnItemPropertyChanged;
-            }
-        }
-        
-        void HandleOldItems()
-        {
-            if (args.OldItems is null) return;
-            
-            // Unsubscribe from each deleted item to avoid memory leaks.
-            foreach (var oldItem in args.OldItems.OfType<OrderItemViewModel>())
-            {
-                oldItem.PropertyChanged -= OnItemPropertyChanged;
-            }
-        }
     }
 
     private void OnItemPropertyChanged(object? _, PropertyChangedEventArgs e)
