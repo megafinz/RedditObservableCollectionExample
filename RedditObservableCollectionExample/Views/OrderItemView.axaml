@@ -6,7 +6,12 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="RedditObservableCollectionExample.Views.OrderItemView">
     <Design.DataContext>
-        <vm:OrderItemViewModel />
+        <vm:OrderItemViewModel>
+            <x:Arguments>
+                <x:String>Order #1</x:String>
+                <x:Int32>2500</x:Int32>
+            </x:Arguments>
+        </vm:OrderItemViewModel>
     </Design.DataContext>
     
     <Grid RowDefinitions="Auto,Auto">
@@ -25,8 +30,8 @@
         </Label>
         <TextBlock 
             Grid.Row="0" 
-            Grid.Column="1" 
-            VerticalAlignment="Center" 
+            Grid.Column="1"
+            VerticalAlignment="Center"
             Text="{Binding Title, Mode=OneTime}" 
         />
         
@@ -39,10 +44,10 @@
         >
             Price:
         </Label>
-        <TextBlock 
+        <TextBox 
             Grid.Row="1"
             Grid.Column="1" 
-            Text="{Binding Price, StringFormat={}{0:C}, Mode=OneWay}" 
+            Text="{Binding PriceCents, Mode=TwoWay}"
             VerticalAlignment="Center"
         />
     </Grid>

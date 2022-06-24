@@ -18,8 +18,8 @@ namespace RedditObservableCollectionExample.ViewModels
         private void DoAddNewOrderItem()
         {
             var index = Order.Items.Count + 1;
-            var price = (decimal) Random.Shared.NextDouble() * 100;
-            Order.Items.Add(new OrderItemViewModel($"Item #{index}", price));
+            var priceCents = Random.Shared.Next(0, 100) * 100;
+            Order.Items.Add(new OrderItemViewModel($"Item #{index}", priceCents));
         }
     }
 }

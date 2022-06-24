@@ -1,14 +1,22 @@
+using ReactiveUI;
+
 namespace RedditObservableCollectionExample.ViewModels;
 
 public sealed class OrderItemViewModel : ViewModelBase
 {
-    public OrderItemViewModel(string title, decimal price)
+    private int _priceCents;
+
+    public OrderItemViewModel(string title, int initialPriceCents)
     {
         Title = title;
-        Price = price;
+        PriceCents = initialPriceCents;
     }
     
     public string Title { get; }
-    
-    public decimal Price { get; }
+
+    public int PriceCents
+    {
+        get => _priceCents;
+        set => this.RaiseAndSetIfChanged(ref _priceCents, value);
+    }
 }
