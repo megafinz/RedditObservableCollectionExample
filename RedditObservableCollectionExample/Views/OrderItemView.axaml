@@ -1,0 +1,49 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:RedditObservableCollectionExample.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="RedditObservableCollectionExample.Views.OrderItemView">
+    <Design.DataContext>
+        <vm:OrderItemViewModel />
+    </Design.DataContext>
+    
+    <Grid RowDefinitions="Auto,Auto">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" SharedSizeGroup="A" />
+            <ColumnDefinition Width="*" SharedSizeGroup="B" />
+        </Grid.ColumnDefinitions>
+        
+        <!-- Title -->
+        <Label 
+            Grid.Row="0" 
+            Grid.Column="0" 
+            Foreground="Gray"
+            VerticalAlignment="Center">
+            Title:
+        </Label>
+        <TextBlock 
+            Grid.Row="0" 
+            Grid.Column="1" 
+            VerticalAlignment="Center" 
+            Text="{Binding Title, Mode=OneTime}" 
+        />
+        
+        <!-- Price -->
+        <Label 
+            Grid.Row="1" 
+            Grid.Column="0" 
+            Foreground="Gray"
+            VerticalAlignment="Center"
+        >
+            Price:
+        </Label>
+        <TextBlock 
+            Grid.Row="1"
+            Grid.Column="1" 
+            Text="{Binding Price, StringFormat={}{0:C}, Mode=OneWay}" 
+            VerticalAlignment="Center"
+        />
+    </Grid>
+</UserControl>

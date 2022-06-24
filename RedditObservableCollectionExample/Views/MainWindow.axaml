@@ -1,0 +1,69 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:RedditObservableCollectionExample.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="RedditObservableCollectionExample.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="RedditObservableCollectionExample"
+        Padding="30">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <Grid RowDefinitions="Auto,Auto,Auto,*" ColumnDefinitions="Auto,*">
+        <!-- Title -->
+        <Label 
+            Grid.Row="0" 
+            Grid.Column="0" 
+            Foreground="Gray"
+            VerticalAlignment="Center"
+        >
+            Title:
+        </Label>
+        <TextBlock 
+            Grid.Row="0" 
+            Grid.Column="1" 
+            Text="{Binding Order.Title, Mode=OneTime}"
+            VerticalAlignment="Center"
+        />
+        
+        <!-- Price -->
+        <Label 
+            Grid.Row="1" 
+            Grid.Column="0" 
+            Foreground="Gray"
+            VerticalAlignment="Center"
+        >
+            Price:
+        </Label>
+        <TextBlock 
+            Grid.Row="1" 
+            Grid.Column="1" 
+            Text="{Binding Order.TotalPrice, StringFormat={}{0:C}, Mode=OneWay}"
+            VerticalAlignment="Center"
+        />
+        
+        <!-- Add Random Item -->
+        <Button 
+            Grid.Row="2" 
+            Grid.Column="0" 
+            Grid.ColumnSpan="2"
+            Command="{Binding AddNewOrderItemCommand, Mode=OneTime}"
+        >
+            Add New Random Item
+        </Button>
+        
+        <!-- Items -->
+        <ListBox 
+            Grid.Row="3" 
+            Grid.Column="0" 
+            Grid.ColumnSpan="2"
+            Items="{Binding Order.Items, Mode=OneTime}"
+            Grid.IsSharedSizeScope="True"
+        />
+    </Grid>
+
+</Window>
